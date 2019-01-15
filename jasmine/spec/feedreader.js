@@ -59,7 +59,7 @@ $(function () {
          * hiding/showing of the menu element.)
          */
         it('is hidden by default', function () {
-            const body = document.getElementsByTagName('body')[0];
+            let body = document.getElementsByTagName('body')[0];
             //expect(body.classList).toContain('menu-hidden');
             expect(body).toHaveClass('menu-hidden');
         });
@@ -98,7 +98,8 @@ $(function () {
         });
 
         it('are loaded and loadFeed function completes its work', function () {
-            expect(container.firstElementChild.firstElementChild).toHaveClass('entry');
+            let feedList = container.getElementsByClassName('entry');
+            expect(feedList.length).toBeGreaterThan(0);
         });
     });
 
@@ -110,15 +111,30 @@ $(function () {
          * by the loadFeed function that the content actually changes.
          * (Remember, loadFeed() is asynchronous.)
          */
-        let container = document.getElementsByClassName('feed')[0];
-        const initialChildElementCount = container.childElementCount;
+        let contentOne = [];
+        let contentTwo = [];
+        let entryArray = [];
 
-        afterEach(function (done) {
-            loadFeed(0, done);
+        beforeEach(function (done) {
+            loadFeed(0);
+            entryArray = document.querySelectorAll('.entry');
+            /* Iterate through the current entry array and fill the
+            first content array with the innerText values */
+            entryArray.forEach(function (entry) {
+                contentOne.push(entry.innerText);
+            });
+            loadFeed(1, done);
         });
 
         it('is loaded and content successfully changes', function () {
-            expect(container.childElementCount).not.toBe(initialChildElementCount);
+            entryArray = document.querySelectorAll('.entry');
+            /* Iterate through the current entry array and fill the
+            second content array with the innerText values */
+            entryArray.forEach(function (entry) {
+                contentTwo.push(entry.innerText);
+            });
+            // Compare the first content array with the second one
+            expect(contentOne).not.toEqual(contentTwo);
         });
     });
 }());

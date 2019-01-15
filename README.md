@@ -21,6 +21,7 @@ Feed Reader Testing
 # Steps to run the application
 * Fork or clone my repository that is available at https://github.com/eeavina/UdacityProject5
 * Alternatively, download it as a zip file
+* Open index.html in order to see the feed reader
 
 # Contributing
 This repository used a starter code that was provided for _all_ Udacity students. I should not accept any pull requests. No thank you, but thank you.
